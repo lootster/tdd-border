@@ -181,7 +181,7 @@ test('should return message "Rejected" if passport is from "HorrorTown" and visa
     "Sheldon",
     "01/01/2010"
   );
-  let visa = new Visa("0123456789", "01/01/2019", "123456789");
+  let visa = new Visa("0123456789", "01/01/2019", "12345");
   let bot = new ImmigrationBot();
   let message = bot.custom(passport, visa);
   date.restore();
