@@ -16,13 +16,18 @@ function isWithinExpiry(visa) {
   return now.isBefore(expiryDate);
 }
 
+function isTagToPassport(visa, passport) {
+  return visa.passportNumber === passport.number;
+}
+
 class VisaService {
-  isValid(visa) {
+  isValid(visa, passport) {
     return (
       visa &&
       isNumberValid(visa) &&
       isDateFormatValid(visa) &&
-      isWithinExpiry(visa)
+      isWithinExpiry(visa) &&
+      isTagToPassport(visa, passport)
     );
   }
 }

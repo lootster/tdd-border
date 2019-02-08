@@ -5,7 +5,7 @@ class ImmigrationBot {
     if (passportService.isValid(passport)) {
       if (
         passportService.isFromHorrorTown(passport) &&
-        !visaService.isValid(visa)
+        !visaService.isValid(visa, passport)
       ) {
         return messageService.getRejectedMessage();
       }

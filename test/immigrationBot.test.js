@@ -9,14 +9,14 @@ test('should return message "Rejected" if there is no passport', () => {
   expect(message).toBe("Rejected");
 });
 
-test('should return message "Rejected" if there is no country', () => {
+test('should return message "Rejected" if passport has no country', () => {
   let passport = new Passport(null);
   let bot = new ImmigrationBot();
   let message = bot.custom(passport);
   expect(message).toBe("Rejected");
 });
 
-test('should return message "Rejected" if there is no passport number', () => {
+test('should return message "Rejected" if passport has no number', () => {
   let passport = new Passport("Wonderland", null);
   let bot = new ImmigrationBot();
   let message = bot.custom(passport);
@@ -30,7 +30,7 @@ test('should return message "Rejected" if passport number is not 8 digits', () =
   expect(message).toBe("Rejected");
 });
 
-test('should return message "Rejected" if there is no fullname', () => {
+test('should return message "Rejected" if passport has no fullname', () => {
   let passport = new Passport("Wonderland", "12345678", null);
   let bot = new ImmigrationBot();
   let message = bot.custom(passport);
@@ -44,7 +44,7 @@ test('should return message "Rejected" if fullname is not a type of string', () 
   expect(message).toBe("Rejected");
 });
 
-test('should return message "Rejected" if there is no date of emission', () => {
+test('should return message "Rejected" if passport has no date of emission', () => {
   let passport = new Passport("Wonderland", "12345678", "Sheldon", null);
   let bot = new ImmigrationBot();
   let message = bot.custom(passport);
@@ -52,22 +52,10 @@ test('should return message "Rejected" if there is no date of emission', () => {
 });
 
 test('should return message "Rejected" if date of emission format is invalid', () => {
-  let passport = new Passport("Wonderland", "12345678", "Sheldon", "31/Jan /2019");
+  let passport = new Passport("Wonderland", "12345678", "Sheldon", "31/Jan/2019");
   let bot = new ImmigrationBot();
   let message = bot.custom(passport);
   expect(message).toBe("Rejected");
-});
-
-test('should return message "Allowed" if passport is valid', () => {
-  let passport = new Passport(
-    "Wonderland",
-    "12345678",
-    "Sheldon",
-    "31/01/2019"
-  );
-  let bot = new ImmigrationBot();
-  let message = bot.custom(passport);
-  expect(message).toBe("Allowed");
 });
 
 test('should return message "Rejected" if passport is expired (more than 10 years)', () => {
@@ -84,17 +72,15 @@ test('should return message "Rejected" if passport is expired (more than 10 year
   expect(message).toBe("Rejected");
 });
 
-test('should return message "Allowed" if passport is valid and not expired', () => {
-  const date = sinon.useFakeTimers({ now: 1548912600000 }); // 01/01/2019
+test('should return message "Allowed" if passport is valid', () => {
   let passport = new Passport(
     "Wonderland",
     "12345678",
     "Sheldon",
-    "01/01/2010"
+    "31/01/2019"
   );
   let bot = new ImmigrationBot();
   let message = bot.custom(passport);
-  date.restore();
   expect(message).toBe("Allowed");
 });
 
@@ -187,7 +173,7 @@ test('should return message "Rejected" if passport is from "HorrorTown" and visa
   expect(message).toBe("Rejected");
 });
 
-test('should return message "Allowed" if passport is from "HorrorTown" and visa is valid', () => {
+test('should return message "Allowed" if passport is from "HorrorTown" and visa is valid and tag to same passport', () => {
   const date = sinon.useFakeTimers({ now: 1548912600000 }); // 01/01/2019
   let passport = new Passport(
     "HorrorTown",
@@ -195,7 +181,7 @@ test('should return message "Allowed" if passport is from "HorrorTown" and visa 
     "Sheldon",
     "01/01/2010"
   );
-  let visa = new Visa("0123456789", "01/01/2019");
+  let visa = new Visa("0123456789", "01/01/2019", "12345678");
   let bot = new ImmigrationBot();
   let message = bot.custom(passport, visa);
   date.restore();
