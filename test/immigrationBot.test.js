@@ -173,7 +173,22 @@ test('should return message "Rejected" if passport is from "HorrorTown" and visa
   expect(message).toBe("Rejected");
 });
 
-test('should return message "Allowed" if passport is from "HorrorTown" and visa is valid and tag to same passport', () => {
+test('should return message "Rejected" if passport is from "HorrorTown" and visa is not tag to same passport', () => {
+  const date = sinon.useFakeTimers({ now: 1548912600000 }); // 01/01/2019
+  let passport = new Passport(
+    "HorrorTown",
+    "12345678",
+    "Sheldon",
+    "01/01/2010"
+  );
+  let visa = new Visa("0123456789", "01/01/2019", "123456789");
+  let bot = new ImmigrationBot();
+  let message = bot.custom(passport, visa);
+  date.restore();
+  expect(message).toBe("Rejected");
+});
+
+test('should return message "Allowed" if passport is from "HorrorTown" and visa is valid', () => {
   const date = sinon.useFakeTimers({ now: 1548912600000 }); // 01/01/2019
   let passport = new Passport(
     "HorrorTown",

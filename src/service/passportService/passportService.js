@@ -47,7 +47,7 @@ class PassportService {
     );
   }
 
-  isFromHorrorTown(passport) {
+  isVisaNeeded(passport) {
     return passport.country && passport.country === VALID_COUNTRY_HORRORTOWN;
   }
 }
