@@ -1,0 +1,23 @@
+{
+  "name": "tdd-border-immigration",
+  "version": "1.0.0",
+  "description": "You are a custom guard of the Wonderland country at the border between Wonderland, MarvelCounty and HorrorTown. People need to have passport to be able to go through. A valid passport should :",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.0.0"
+  },
+  "dependencies": {
+    "moment": "^2.24.0",
+    "sinon": "^7.2.3"
+  }
+}
